@@ -1,5 +1,4 @@
-﻿using System;
-using MyFirstCoolWebServer.Server.Common;
+﻿using MyFirstCoolWebServer.Server.Common;
 
 namespace MyFirstCoolWebServer.Server.HTTP
 {

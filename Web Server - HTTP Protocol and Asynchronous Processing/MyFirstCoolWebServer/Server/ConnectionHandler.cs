@@ -1,12 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
-using MyFirstCoolWebServer.Server.Common;
+﻿using MyFirstCoolWebServer.Server.Common;
 using MyFirstCoolWebServer.Server.Handlers;
 using MyFirstCoolWebServer.Server.HTTP;
 using MyFirstCoolWebServer.Server.Routing.Contracts;
+using System;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace MyFirstCoolWebServer.Server
 {

@@ -1,16 +1,15 @@
-﻿using System;
-using MyFirstCoolWebServer.Server.Common;
+﻿using MyFirstCoolWebServer.Server.Common;
 using MyFirstCoolWebServer.Server.Handlers.Contracts;
-using MyFirstCoolWebServer.Server.HTTP;
 using MyFirstCoolWebServer.Server.HTTP.Contracts;
+using System;
 
 namespace MyFirstCoolWebServer.Server.Handlers
 {
-    public abstract class RequestHandler : IRequestHandler
+    public class RequestHandler : IRequestHandler
     {
         private readonly Func<IHttpRequest, IHttpResponse> func;
 
-        protected RequestHandler(Func<IHttpRequest, IHttpResponse> func)
+        public RequestHandler(Func<IHttpRequest, IHttpResponse> func)
         {
             CommonValidator.NullCheck(func, nameof(func));
             this.func = func;
@@ -20,7 +19,10 @@ namespace MyFirstCoolWebServer.Server.Handlers
         {
             var response = this.func(request.HttpRequest);
 
-            response.AddHeader("Content-Type", "text/html");
+            if (!response.HeaderCollection.ContainsKey("text/html"))
+            {
+                response.AddHeader("Content-Type", "text/html");
+            }
 
             return response;
         }

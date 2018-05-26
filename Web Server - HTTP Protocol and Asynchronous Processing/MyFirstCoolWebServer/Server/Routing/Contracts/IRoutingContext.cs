@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using MyFirstCoolWebServer.Server.Handlers.Contracts;
+﻿using MyFirstCoolWebServer.Server.Handlers.Contracts;
+using System.Collections.Generic;
 
 namespace MyFirstCoolWebServer.Server.Routing.Contracts
 {

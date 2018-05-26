@@ -13,6 +13,7 @@ namespace MyFirstCoolWebServer.Server.HTTP
 
             this.httpRequest = new HttpRequest(requestString);
         }
+
         public IHttpRequest HttpRequest => this.httpRequest;
     }
 }

@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using MyFirstCoolWebServer.Server.Common;
+﻿using MyFirstCoolWebServer.Server.Common;
 using MyFirstCoolWebServer.Server.Enums;
 using MyFirstCoolWebServer.Server.Exceptions;
 using MyFirstCoolWebServer.Server.HTTP.Contracts;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 
 namespace MyFirstCoolWebServer.Server.HTTP
 {
@@ -38,13 +38,14 @@ namespace MyFirstCoolWebServer.Server.HTTP
 
             this.UrlParameters[key] = value;
         }
+
         private void ParseRequest(string requestString)
         {
             var lines = requestString.Split(Environment.NewLine);
 
             var methodAndUrl = lines[0].Split();
 
-            if (methodAndUrl.Length != 3 
+            if (methodAndUrl.Length != 3
                 || methodAndUrl[2].ToLower() != "http/1.1")
             {
                 throw new BadRequestExeption(BadRequestMessage);
@@ -124,7 +125,7 @@ namespace MyFirstCoolWebServer.Server.HTTP
 
                 if (!this.HeaderCollection.ContainsKey("Host"))
                 {
-                    throw new BadRequestExeption(BadRequestMessage); 
+                    throw new BadRequestExeption(BadRequestMessage);
                 }
             }
         }
@@ -133,6 +134,7 @@ namespace MyFirstCoolWebServer.Server.HTTP
         {
             return path.Split("#?".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)[0];
         }
+
         private RequestMethod ParseMethod(string method)
         {
             try

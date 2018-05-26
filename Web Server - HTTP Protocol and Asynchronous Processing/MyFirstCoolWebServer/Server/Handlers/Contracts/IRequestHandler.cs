@@ -1,5 +1,4 @@
-﻿using MyFirstCoolWebServer.Server.HTTP;
-using MyFirstCoolWebServer.Server.HTTP.Contracts;
+﻿using MyFirstCoolWebServer.Server.HTTP.Contracts;
 
 namespace MyFirstCoolWebServer.Server.Handlers.Contracts
 {

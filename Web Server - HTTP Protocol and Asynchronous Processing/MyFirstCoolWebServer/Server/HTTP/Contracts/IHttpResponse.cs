@@ -1,5 +1,4 @@
-﻿using MyFirstCoolWebServer.Server.Contracts;
-using MyFirstCoolWebServer.Server.Enums;
+﻿using MyFirstCoolWebServer.Server.Enums;
 
 namespace MyFirstCoolWebServer.Server.HTTP.Contracts
 {

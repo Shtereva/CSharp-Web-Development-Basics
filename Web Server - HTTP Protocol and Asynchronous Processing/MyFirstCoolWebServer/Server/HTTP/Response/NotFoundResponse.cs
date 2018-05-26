@@ -2,7 +2,7 @@
 
 namespace MyFirstCoolWebServer.Server.HTTP.Response
 {
-    public class NotFoundResponse : HttpResponse    
+    public class NotFoundResponse : HttpResponse
     {
         public NotFoundResponse()
         {

@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using MyFirstCoolWebServer.Server.Common;
+﻿using MyFirstCoolWebServer.Server.Common;
 using MyFirstCoolWebServer.Server.HTTP.Contracts;
+using System;
+using System.Collections.Generic;
 
 namespace MyFirstCoolWebServer.Server.HTTP
 {

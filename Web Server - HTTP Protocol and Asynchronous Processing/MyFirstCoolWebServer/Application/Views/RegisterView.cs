@@ -1,5 +1,5 @@
-﻿using System.Text;
-using MyFirstCoolWebServer.Server.Contracts;
+﻿using MyFirstCoolWebServer.Server.Contracts;
+using System.Text;
 
 namespace MyFirstCoolWebServer.Application.Views
 {

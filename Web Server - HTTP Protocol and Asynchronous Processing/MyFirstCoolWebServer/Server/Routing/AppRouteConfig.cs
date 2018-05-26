@@ -1,17 +1,17 @@
-﻿using System;
+﻿using MyFirstCoolWebServer.Server.Enums;
+using MyFirstCoolWebServer.Server.Handlers;
+using MyFirstCoolWebServer.Server.HTTP.Contracts;
+using MyFirstCoolWebServer.Server.Routing.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using MyFirstCoolWebServer.Server.Enums;
-using MyFirstCoolWebServer.Server.Handlers;
-using MyFirstCoolWebServer.Server.Routing.Contracts;
 
 namespace MyFirstCoolWebServer.Server.Routing
 {
     public class AppRouteConfig : IAppRouteConfig
     {
-        private readonly IDictionary<RequestMethod, IDictionary<string, RequestHandler>> routes;
-        public IReadOnlyDictionary<RequestMethod, IDictionary<string, RequestHandler>> Routes => 
-            (IReadOnlyDictionary<RequestMethod, IDictionary<string, RequestHandler>>) this.routes;
+        private readonly Dictionary<RequestMethod, IDictionary<string, RequestHandler>> routes;
+        public IReadOnlyDictionary<RequestMethod, IDictionary<string, RequestHandler>> Routes => this.routes;
 
         public AppRouteConfig()
         {
@@ -26,23 +26,20 @@ namespace MyFirstCoolWebServer.Server.Routing
                 this.routes[requestMethod] = new Dictionary<string, RequestHandler>();
             }
         }
-        public void AddRoute(string route, RequestHandler requestHandler)
+
+        public void Get(string route, Func<IHttpRequest, IHttpResponse> handler)
         {
-            var handlerName = requestHandler.GetType().Name.ToLower();
+            this.AddRoute(route, RequestMethod.Get, new RequestHandler(handler));
+        }
 
-            if (handlerName.Contains("get"))
-            {
-                this.routes[RequestMethod.Get].Add(route, requestHandler);
-            }
+        public void Post(string route, Func<IHttpRequest, IHttpResponse> handler)
+        {
+            this.AddRoute(route, RequestMethod.Post, new RequestHandler(handler));
+        }
 
-            else if (handlerName.Contains("post"))
-            {
-                this.routes[RequestMethod.Post].Add(route, requestHandler);
-            }
-            else
-            {
-                throw new InvalidOperationException("Invalid handler!");
-            }
+        public void AddRoute(string route, RequestMethod method, RequestHandler handler)
+        {
+            this.routes[method].Add(route, handler);
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using MyFirstCoolWebServer.Application.Controllers;
 using MyFirstCoolWebServer.Server.Contracts;
-using MyFirstCoolWebServer.Server.Handlers;
 using MyFirstCoolWebServer.Server.Routing.Contracts;
 
 namespace MyFirstCoolWebServer.Application
@@ -9,15 +8,15 @@ namespace MyFirstCoolWebServer.Application
     {
         public void Configure(IAppRouteConfig appRouteConfig)
         {
-            appRouteConfig.AddRoute("/", new GetHandler(httpContext => new HomeController().Index()));
+            appRouteConfig.Get("/", req => new HomeController().Index());
 
-            appRouteConfig.AddRoute("/register", new GetHandler(httpContext => new UserController().RegisterGet()));
+            appRouteConfig.Get("/register", req => new UserController().RegisterGet());
 
-            appRouteConfig.AddRoute("/register"
-                , new PostHandler(httpContext => new UserController().RegisterPost(httpContext.FormData["name"])));
+            appRouteConfig.Post("/register"
+                , req => new UserController().RegisterPost(req.FormData["name"]));
 
-            appRouteConfig.AddRoute("/user/{(?<name>[a-z]+)}",
-                new GetHandler(httpContext => new UserController().Details(httpContext.UrlParameters["name"])));
+            appRouteConfig.Get("/user/{(?<name>[a-zA-Z]+)}",
+                req => new UserController().Details(req.UrlParameters["name"]));
         }
     }
 }

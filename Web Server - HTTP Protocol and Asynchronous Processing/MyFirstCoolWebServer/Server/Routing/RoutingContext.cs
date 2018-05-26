@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using MyFirstCoolWebServer.Server.Common;
+﻿using MyFirstCoolWebServer.Server.Common;
 using MyFirstCoolWebServer.Server.Handlers.Contracts;
 using MyFirstCoolWebServer.Server.Routing.Contracts;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MyFirstCoolWebServer.Server.Routing
 {

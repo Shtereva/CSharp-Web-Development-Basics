@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
-using MyFirstCoolWebServer.Server.Enums;
+﻿using MyFirstCoolWebServer.Server.Enums;
 using MyFirstCoolWebServer.Server.Handlers;
+using MyFirstCoolWebServer.Server.HTTP.Contracts;
+using System;
+using System.Collections.Generic;
 
 namespace MyFirstCoolWebServer.Server.Routing.Contracts
 {
@@ -8,6 +10,10 @@ namespace MyFirstCoolWebServer.Server.Routing.Contracts
     {
         IReadOnlyDictionary<RequestMethod, IDictionary<string, RequestHandler>> Routes { get; }
 
-        void AddRoute(string route, RequestHandler requestHandler);
+        void Get(string route, Func<IHttpRequest, IHttpResponse> handler);
+
+        void Post(string route, Func<IHttpRequest, IHttpResponse> handler);
+
+        void AddRoute(string route, RequestMethod method, RequestHandler handler);
     }
 }

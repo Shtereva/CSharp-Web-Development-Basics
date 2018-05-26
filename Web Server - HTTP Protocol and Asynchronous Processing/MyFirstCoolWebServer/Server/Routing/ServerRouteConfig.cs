@@ -1,10 +1,10 @@
-﻿using System;
+﻿using MyFirstCoolWebServer.Server.Enums;
+using MyFirstCoolWebServer.Server.Routing.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using MyFirstCoolWebServer.Server.Enums;
-using MyFirstCoolWebServer.Server.Routing.Contracts;
 
 namespace MyFirstCoolWebServer.Server.Routing
 {
@@ -80,7 +80,7 @@ namespace MyFirstCoolWebServer.Server.Routing
                 if (!tokens[index].StartsWith("{") && !tokens[index].EndsWith("}"))
                 {
                     parsedRegex.Append($"{tokens[index]}{end}");
-                    continue;   
+                    continue;
                 }
 
                 string pattern = "<\\w+>";

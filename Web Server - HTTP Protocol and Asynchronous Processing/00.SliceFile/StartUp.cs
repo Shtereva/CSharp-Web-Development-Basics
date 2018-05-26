@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace _00.SliceFile
@@ -8,6 +7,7 @@ namespace _00.SliceFile
     public class StartUp
     {
         private const int BufferSize = 4096;
+
         public static void Main()
         {
             SliceAsync();
@@ -62,7 +62,6 @@ namespace _00.SliceFile
                         }
                     }
                 }
-
             }
         }
     }

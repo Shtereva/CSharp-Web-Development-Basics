@@ -1,11 +1,11 @@
-﻿using System;
-using System.Net;
-using System.Net.Sockets;
-using System.Threading.Tasks;
-using MyFirstCoolWebServer.Server.Common;
+﻿using MyFirstCoolWebServer.Server.Common;
 using MyFirstCoolWebServer.Server.Contracts;
 using MyFirstCoolWebServer.Server.Routing;
 using MyFirstCoolWebServer.Server.Routing.Contracts;
+using System;
+using System.Net;
+using System.Net.Sockets;
+using System.Threading.Tasks;
 
 namespace MyFirstCoolWebServer.Server
 {
@@ -28,6 +28,7 @@ namespace MyFirstCoolWebServer.Server
 
             this.serverRouteConfig = new ServerRouteConfig(appRouteConfig);
         }
+
         public void Run()
         {
             this.tcpListener.Start();

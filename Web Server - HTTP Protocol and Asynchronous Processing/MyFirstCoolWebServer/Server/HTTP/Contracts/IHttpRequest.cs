@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using MyFirstCoolWebServer.Server.Enums;
+﻿using MyFirstCoolWebServer.Server.Enums;
+using System.Collections.Generic;
 
 namespace MyFirstCoolWebServer.Server.HTTP.Contracts
 {

@@ -24,7 +24,6 @@ namespace _00.SympleWebServer
             Task.Run(async () =>
             {
                 await ConnectWithTcpClient(tcpListener);
-
             })
                 .GetAwaiter()
                 .GetResult();

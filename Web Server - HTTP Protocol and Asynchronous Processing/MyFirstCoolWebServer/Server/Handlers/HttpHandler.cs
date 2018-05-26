@@ -1,10 +1,9 @@
-﻿using System.Text.RegularExpressions;
-using MyFirstCoolWebServer.Server.Common;
+﻿using MyFirstCoolWebServer.Server.Common;
 using MyFirstCoolWebServer.Server.Handlers.Contracts;
-using MyFirstCoolWebServer.Server.HTTP;
 using MyFirstCoolWebServer.Server.HTTP.Contracts;
 using MyFirstCoolWebServer.Server.HTTP.Response;
 using MyFirstCoolWebServer.Server.Routing.Contracts;
+using System.Text.RegularExpressions;
 
 namespace MyFirstCoolWebServer.Server.Handlers
 {

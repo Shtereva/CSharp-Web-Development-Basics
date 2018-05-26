@@ -9,7 +9,7 @@ namespace _00.ValidateUrl
         {
             string inputUrl = Console.ReadLine();
             string decodedUrl = WebUtility.UrlDecode(inputUrl);
-            
+
             var parsedUrl = new Uri(decodedUrl);
 
             string protocol = parsedUrl.Scheme;
@@ -19,7 +19,6 @@ namespace _00.ValidateUrl
             string query = parsedUrl.Query;
             string fragment = parsedUrl.Fragment;
 
-           
             if (protocol == null || host == null || (protocol == "http" && port == 443) || (protocol == "https" && port == 80))
             {
                 Console.WriteLine("Invalid Url");
