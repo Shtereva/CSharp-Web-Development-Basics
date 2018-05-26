@@ -42,7 +42,7 @@ namespace MyFirstCoolWebServer.Server.HTTP
 
         public override string ToString()
         {
-            return string.Join(Environment.NewLine, this.headers);
+            return string.Join(Environment.NewLine, this.headers.Values);
         }
     }
 }

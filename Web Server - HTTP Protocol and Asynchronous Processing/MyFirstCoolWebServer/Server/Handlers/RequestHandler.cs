@@ -20,7 +20,7 @@ namespace MyFirstCoolWebServer.Server.Handlers
         {
             var response = this.func(request.HttpRequest);
 
-            response.AddHeader("Content-Type", "text/plain");
+            response.AddHeader("Content-Type", "text/html");
 
             return response;
         }

@@ -27,7 +27,7 @@ namespace MyFirstCoolWebServer.Server.Handlers
             {
                 var routePattern = registeredRoute.Key;
 
-                var match = Regex.Match(routePattern, request.HttpRequest.Path);
+                var match = Regex.Match(request.HttpRequest.Path, routePattern);
 
                 if (!match.Success)
                 {
