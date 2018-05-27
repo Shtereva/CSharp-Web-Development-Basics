@@ -13,9 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "00.EvenNumbersThread", "00.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "00.SliceFile", "00.SliceFile\00.SliceFile.csproj", "{461A3B6E-5BCE-462F-8423-5AA9FE92F512}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "00.SympleWebServer", "00.SympleWebServer\00.SympleWebServer.csproj", "{FAA3F731-59DE-486A-902E-B7B6DD309F88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "00.SympleWebServer", "00.SympleWebServer\00.SympleWebServer.csproj", "{FAA3F731-59DE-486A-902E-B7B6DD309F88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFirstCoolWebServer", "MyFirstCoolWebServer\MyFirstCoolWebServer.csproj", "{E0FEEE1F-CF43-4B18-95A7-694BD64DEF2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyFirstCoolWebServer", "MyFirstCoolWebServer\MyFirstCoolWebServer.csproj", "{E0FEEE1F-CF43-4B18-95A7-694BD64DEF2D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyFirstCoolWebServerBasicHTMLPages", "MyFirstCoolWebServer-Basic HTML Pages\MyFirstCoolWebServerBasicHTMLPages.csproj", "{6121EBE3-E314-4B04-85C2-D906E0E7EFD2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{E0FEEE1F-CF43-4B18-95A7-694BD64DEF2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0FEEE1F-CF43-4B18-95A7-694BD64DEF2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0FEEE1F-CF43-4B18-95A7-694BD64DEF2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6121EBE3-E314-4B04-85C2-D906E0E7EFD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6121EBE3-E314-4B04-85C2-D906E0E7EFD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6121EBE3-E314-4B04-85C2-D906E0E7EFD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6121EBE3-E314-4B04-85C2-D906E0E7EFD2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
