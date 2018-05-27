@@ -6,8 +6,8 @@ namespace MyFirstCoolWebServer.Server.HTTP.Contracts
     {
         IHttpHeaderCollection HeaderCollection { get; }
 
-        ResponseStatusCode StatusCode { get; }
+        IHttpCookieCollection Cookies { get; }
 
-        void AddHeader(string key, string value);
+        ResponseStatusCode StatusCode { get; }
     }
 }

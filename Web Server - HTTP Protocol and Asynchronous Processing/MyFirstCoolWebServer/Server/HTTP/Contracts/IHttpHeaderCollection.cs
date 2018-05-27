@@ -1,11 +1,13 @@
-﻿namespace MyFirstCoolWebServer.Server.HTTP.Contracts
+﻿using System.Collections.Generic;
+
+namespace MyFirstCoolWebServer.Server.HTTP.Contracts
 {
-    public interface IHttpHeaderCollection
+    public interface IHttpHeaderCollection : IEnumerable<ICollection<HttpHeader>>
     {
         void AddHeader(HttpHeader header);
 
         bool ContainsKey(string key);
 
-        HttpHeader GetHeader(string key);
+        ICollection<HttpHeader> GetHeader(string key);
     }
 }

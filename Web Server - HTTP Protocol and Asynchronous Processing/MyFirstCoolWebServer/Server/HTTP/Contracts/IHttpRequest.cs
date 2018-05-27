@@ -9,6 +9,10 @@ namespace MyFirstCoolWebServer.Server.HTTP.Contracts
 
         IHttpHeaderCollection HeaderCollection { get; }
 
+        IHttpCookieCollection Cookies { get; }
+
+        IHttpSession Session { get; set; }
+
         string Path { get; }
 
         IDictionary<string, string> QueryParameters { get; }

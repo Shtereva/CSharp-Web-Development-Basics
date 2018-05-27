@@ -20,13 +20,13 @@ namespace MyFirstCoolWebServer.Server.Handlers
 
         public IHttpResponse Handle(IHttpContext request)
         {
-            var requestMethod = request.HttpRequest.RequestMethod;
+            var requestMethod = request.Request.RequestMethod;
 
             foreach (var registeredRoute in this.serverRouteConfig.Routes[requestMethod])
             {
                 var routePattern = registeredRoute.Key;
 
-                var match = Regex.Match(request.HttpRequest.Path, routePattern);
+                var match = Regex.Match(request.Request.Path, routePattern);
 
                 if (!match.Success)
                 {
@@ -35,7 +35,7 @@ namespace MyFirstCoolWebServer.Server.Handlers
 
                 foreach (var parameter in registeredRoute.Value.Parameters)
                 {
-                    request.HttpRequest.AddUrlParameter(parameter, match.Groups[parameter].Value);
+                    request.Request.AddUrlParameter(parameter, match.Groups[parameter].Value);
                 }
 
                 return registeredRoute.Value.RequestHandler.Handle(request);

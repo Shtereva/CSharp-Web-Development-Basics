@@ -4,6 +4,9 @@ namespace MyFirstCoolWebServer.Server.HTTP
 {
     public class HttpHeader
     {
+        public const string Cookie = "Cookie";
+        public const string SetCookie = "Set-Cookie";
+
         public string Key { get; }
         public string Value { get; }
 

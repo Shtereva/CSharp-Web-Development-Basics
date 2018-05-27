@@ -13,12 +13,22 @@ namespace MyFirstCoolWebServer.Server.HTTP
     {
         private const string BadRequestMessage = "Invalid request";
         public IDictionary<string, string> FormData { get; private set; }
+
         public IHttpHeaderCollection HeaderCollection { get; }
+
+        public IHttpCookieCollection Cookies { get; private set; }
+
         public string Path { get; private set; }
+
         public IDictionary<string, string> QueryParameters { get; private set; }
+
         public RequestMethod RequestMethod { get; private set; }
+
         public string Url { get; private set; }
+
         public IDictionary<string, string> UrlParameters { get; private set; }
+
+        public IHttpSession Session { get; set; }
 
         public HttpRequest(string requestString)
         {
@@ -28,6 +38,7 @@ namespace MyFirstCoolWebServer.Server.HTTP
             this.HeaderCollection = new HttpHeaderCollection();
             this.QueryParameters = new Dictionary<string, string>();
             this.UrlParameters = new Dictionary<string, string>();
+            this.Cookies = new HttpCookieCollection();
 
             this.ParseRequest(requestString);
         }
@@ -54,9 +65,14 @@ namespace MyFirstCoolWebServer.Server.HTTP
             this.RequestMethod = this.ParseMethod(methodAndUrl[0]);
             this.Url = methodAndUrl[1];
             this.Path = this.ParsePath(this.Url);
+
             this.ParseHeaders(lines);
+            this.ParseCookies();
+
             this.ParseParameters();
             this.ParseFormData(lines);
+
+            this.SetSession();
         }
 
         private void ParseFormData(string[] lines)
@@ -130,6 +146,46 @@ namespace MyFirstCoolWebServer.Server.HTTP
             }
         }
 
+        private void ParseCookies()
+        {
+            if (this.HeaderCollection.ContainsKey(HttpHeader.Cookie))
+            {
+                var allCookies = this.HeaderCollection.GetHeader(HttpHeader.Cookie);
+
+                foreach (var cookie in allCookies)
+                {
+                    if (!cookie.Value.Contains('='))
+                    {
+                        return;
+                    }
+
+                    var cookieParts = cookie
+                        .Value
+                        .Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
+                        .ToList();
+
+                    if (!cookieParts.Any())
+                    {
+                        continue;
+                    }
+
+                    foreach (var cookiePart in cookieParts)
+                    {
+                        var cookieKeyValuePair = cookiePart
+                            .Split(new[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
+
+                        if (cookieKeyValuePair.Length == 2)
+                        {
+                            var key = cookieKeyValuePair[0].Trim();
+                            var value = cookieKeyValuePair[1].Trim();
+
+                            this.Cookies.Add(new HttpCookie(key, value, false));
+                        }
+                    }
+                }
+            }
+        }
+
         private string ParsePath(string path)
         {
             return path.Split("#?".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)[0];
@@ -144,6 +200,17 @@ namespace MyFirstCoolWebServer.Server.HTTP
             catch (Exception)
             {
                 throw new BadRequestExeption(BadRequestMessage);
+            }
+        }
+
+        private void SetSession()
+        {
+            if (this.Cookies.ContainsKey(SessionStore.SessionCookieKey))
+            {
+                var cookie = this.Cookies.Get(SessionStore.SessionCookieKey);
+                var sessionId = cookie.Value;
+
+                this.Session = SessionStore.Get(sessionId);
             }
         }
     }

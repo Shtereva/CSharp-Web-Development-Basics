@@ -11,7 +11,7 @@ namespace MyFirstCoolWebServer.Server.HTTP.Response
 
             this.StatusCode = ResponseStatusCode.Found;
 
-            this.AddHeader("Location", redirectUrl);
+            this.HeaderCollection.AddHeader(new HttpHeader("Location", redirectUrl));
         }
     }
 }

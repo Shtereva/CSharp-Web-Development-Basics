@@ -2,6 +2,6 @@
 {
     public interface IHttpContext
     {
-        IHttpRequest HttpRequest { get; }
+        IHttpRequest Request { get; }
     }
 }

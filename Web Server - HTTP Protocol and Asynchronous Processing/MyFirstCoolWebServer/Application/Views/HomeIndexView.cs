@@ -1,4 +1,5 @@
-﻿using MyFirstCoolWebServer.Server.Contracts;
+﻿using System;
+using MyFirstCoolWebServer.Server.Contracts;
 
 namespace MyFirstCoolWebServer.Application.Views
 {
@@ -6,7 +7,7 @@ namespace MyFirstCoolWebServer.Application.Views
     {
         public string View()
         {
-            return "<body><h1>Welcome</h1></body>";
+            return "<body><h1>Welcome</h1></body>" + Environment.NewLine;
         }
     }
 }

@@ -5,15 +5,15 @@ namespace MyFirstCoolWebServer.Server.HTTP
 {
     public class HttpContext : IHttpContext
     {
-        private readonly IHttpRequest httpRequest;
+        private readonly IHttpRequest request;
 
         public HttpContext(string requestString)
         {
             CommonValidator.NullOrWhiteSpaceCheck(requestString, nameof(requestString));
 
-            this.httpRequest = new HttpRequest(requestString);
+            this.request = new HttpRequest(requestString);
         }
 
-        public IHttpRequest HttpRequest => this.httpRequest;
+        public IHttpRequest Request => this.request;
     }
 }

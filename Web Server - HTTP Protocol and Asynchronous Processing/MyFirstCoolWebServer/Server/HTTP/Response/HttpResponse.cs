@@ -7,19 +7,16 @@ namespace MyFirstCoolWebServer.Server.HTTP.Response
     public abstract class HttpResponse : IHttpResponse
     {
         private string StatusMessage => this.StatusCode.ToString();
-        public IHttpHeaderCollection HeaderCollection { get; protected set; }
+        public IHttpHeaderCollection HeaderCollection { get; }
+
+        public IHttpCookieCollection Cookies { get; }
         public ResponseStatusCode StatusCode { get; protected set; }
 
         protected HttpResponse()
         {
             this.HeaderCollection = new HttpHeaderCollection();
+            this.Cookies = new HttpCookieCollection();
         }
-
-        public void AddHeader(string key, string value)
-        {
-            this.HeaderCollection.AddHeader(new HttpHeader(key, value));
-        }
-
         public override string ToString()
         {
             var response = new StringBuilder();

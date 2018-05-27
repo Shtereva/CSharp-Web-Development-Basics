@@ -1,4 +1,5 @@
-﻿using MyFirstCoolWebServer.Application.Models;
+﻿using System;
+using MyFirstCoolWebServer.Application.Models;
 using MyFirstCoolWebServer.Server.Contracts;
 
 namespace MyFirstCoolWebServer.Application.Views
@@ -14,7 +15,7 @@ namespace MyFirstCoolWebServer.Application.Views
 
         public string View()
         {
-            return $"<body>Hello, {this.model["name"]}!</body>";
+            return $"<body>Hello, {this.model["name"]}!</body>" + Environment.NewLine;
         }
     }
 }
