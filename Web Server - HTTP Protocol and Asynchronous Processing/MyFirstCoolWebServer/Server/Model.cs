@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MyFirstCoolWebServer.Application.Models
+namespace MyFirstCoolWebServer.Server
 {
     public class Model
     {

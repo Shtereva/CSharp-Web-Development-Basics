@@ -8,6 +8,7 @@
         MovedTemporarily = 303,
         NotAuthorized = 401,
         NotFound = 404,
-        InternalServerError = 500
+        InternalServerError = 500,
+        BadRequest = 400
     }
 }

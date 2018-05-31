@@ -1,4 +1,4 @@
-﻿using MyFirstCoolWebServer.Application;
+﻿using MyFirstCoolWebServer.ByTheCakeApplication;
 using MyFirstCoolWebServer.Server;
 using MyFirstCoolWebServer.Server.Contracts;
 using MyFirstCoolWebServer.Server.Routing;
@@ -9,7 +9,7 @@ namespace MyFirstCoolWebServer
     {
         public void Run()
         {
-            var app = new MainApplication();
+            var app = new ByTheCakeApp();
             var routeConfig = new AppRouteConfig();
             app.Configure(routeConfig);
 
