@@ -5,10 +5,17 @@
     <input type="text" name="name" placeholder="Name" />
     Price: 
     <input type="number" min="0" name="price" placeholder="Price" />
+    Picture Url:
+    <input type="text" name="image-url" placeholder="picture url"/>
     <input type="submit" value="Add Cake" />
 </form>
 
+<div style="display: {{{showError}}}; color: red">
+    {{{error}}}
+</div>
+
 <div style="display: {{{showResult}}}">
-    name: {{{name}}}
-    price: {{{price}}}
+    <p>Name: {{{name}}}</p>
+    <p>Price: {{{price}}}</p>
+    <p><img src="{{{image-url}}}"/></p>
 </div>

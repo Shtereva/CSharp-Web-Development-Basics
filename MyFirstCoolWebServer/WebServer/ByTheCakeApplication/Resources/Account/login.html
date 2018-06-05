@@ -1,7 +1,7 @@
 ﻿<h2>Login</h2>
 
 <form method="post">
-    Name: 
+    Usename: 
     <input type="text" name="name" placeholder="Name" />
     <br />
     Password:
@@ -9,7 +9,13 @@
     <br />
     <input type="submit" value="Login" />
 </form>
+<br/>
 
 <div style="display: {{{showError}}}; color: red">
     {{{error}}}
 </div>
+<br/>
+<p>
+    Dont have an account?
+    <a href="/register">Register</a>
+</p>

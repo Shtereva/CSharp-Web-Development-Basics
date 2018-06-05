@@ -1,4 +1,6 @@
-﻿namespace HTTPServer.Server.Handlers
+﻿using System.Linq;
+
+namespace HTTPServer.Server.Handlers
 {
     using Common;
     using Contracts;
@@ -25,13 +27,13 @@
             try
             {
                 // Check if user is authenticated
-                var loginPath = "/login";
+                var anonymosPath = new[] { "/login", "/register" };
 
-                if (context.Request.Path != loginPath &&
-                    (context.Request.Session == null || 
+                if (!anonymosPath.Contains(context.Request.Path) &&
+                    (context.Request.Session == null ||
                     !context.Request.Session.Contains(SessionStore.CurrentUserKey)))
                 {
-                    return new RedirectResponse(loginPath);
+                    return new RedirectResponse(anonymosPath.First());
                 }
 
                 var requestMethod = context.Request.Method;

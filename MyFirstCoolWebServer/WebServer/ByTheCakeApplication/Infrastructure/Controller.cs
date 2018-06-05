@@ -17,12 +17,18 @@
         {
             this.ViewData = new Dictionary<string, string>
             {
-                ["authDisplay"] = "block"
+                ["authDisplay"] = "block",
+                ["showError"] = "none"
             };
         }
 
         protected IDictionary<string, string> ViewData { get; private set; }
-        
+
+        protected void AddViewError(string errorMessage)
+        {
+            this.ViewData["error"] = errorMessage;
+            this.ViewData["showError"] = "block";
+        }
         protected IHttpResponse FileViewResponse(string fileName)
         {
             var result = this.ProcessFileHtml(fileName);

@@ -1,4 +1,5 @@
 ﻿using HTTPServer.ByTheCakeApplication;
+using HTTPServer.ByTheCakeApplication.Data;
 using HTTPServer.Server;
 using HTTPServer.Server.Routing;
 
@@ -15,6 +16,7 @@ namespace HTTPServer
         {
             //TODO: Initialize application
             var application = new ByTheCakeApp();
+            //application.InitializeDatabase();
 
             var appRouteConfig = new AppRouteConfig();
             //TODO: Configure App Route Configuration
