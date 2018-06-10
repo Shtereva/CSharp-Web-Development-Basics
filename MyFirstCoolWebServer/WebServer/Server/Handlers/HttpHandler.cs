@@ -7,7 +7,7 @@ namespace HTTPServer.Server.Handlers
     using Http.Contracts;
     using Http.Response;
     using Routing.Contracts;
-    using Server.Http;
+    using Http;
     using System;
     using System.Text.RegularExpressions;
 
@@ -27,7 +27,7 @@ namespace HTTPServer.Server.Handlers
             try
             {
                 // Check if user is authenticated
-                var anonymosPath = new[] { "/login", "/register" };
+                var anonymosPath = this.serverRouteConfig.AnonymousPaths;
 
                 if (!anonymosPath.Contains(context.Request.Path) &&
                     (context.Request.Session == null ||

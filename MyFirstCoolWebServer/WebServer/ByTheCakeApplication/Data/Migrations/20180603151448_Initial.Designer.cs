@@ -4,13 +4,16 @@ using HTTPServer.ByTheCakeApplication.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace HTTPServer.Migrations
+namespace HTTPServer.ByTheCakeApplication.Data.Migrations
 {
     [DbContext(typeof(ByTheCakeDbContext))]
-    partial class ByTheCakeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180603151448_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

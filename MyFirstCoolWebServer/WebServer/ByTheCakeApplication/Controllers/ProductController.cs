@@ -1,6 +1,5 @@
 ﻿namespace HTTPServer.ByTheCakeApplication.Controllers
 {
-    using Infrastructure;
     using ViewModels;
     using Server.Http.Contracts;
     using Services;
@@ -9,7 +8,7 @@
     using System;
     using Server.Http.Response;
 
-    public class ProductController : Controller
+    public class ProductController : BaseController
     {
         private const string PathView = @"product\add";
         private readonly IProductService productService;

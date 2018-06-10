@@ -1,6 +1,5 @@
 ﻿namespace HTTPServer.ByTheCakeApplication.Controllers
 {
-    using Infrastructure;
     using ViewModels;
     using ViewModels.Account;
     using Server.Http;
@@ -10,7 +9,7 @@
     using Services.Contracts;
     using System;
 
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private const string PathView = @"account\login";
         private readonly IUserService userService;

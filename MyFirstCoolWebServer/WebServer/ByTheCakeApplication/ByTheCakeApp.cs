@@ -7,7 +7,7 @@ namespace HTTPServer.ByTheCakeApplication
     using Controllers;
     using Server.Contracts;
     using Server.Routing.Contracts;
-    using ByTheCakeApplication.Data;
+    using Data;
 
     public class ByTheCakeApp : IApplication
     {
@@ -20,6 +20,9 @@ namespace HTTPServer.ByTheCakeApplication
         }
         public void Configure(IAppRouteConfig appRouteConfig)
         {
+            appRouteConfig.AnonymousPaths.Add("/login");
+            appRouteConfig.AnonymousPaths.Add("/register");
+
             appRouteConfig
                 .Get("/", req => new HomeController().Index());
 

@@ -1,7 +1,6 @@
-﻿namespace HTTPServer.ByTheCakeApplication.Views.Home
+﻿namespace HTTPServer.Infrastructure
 {
     using Server.Contracts;
-
     public class FileView : IView
     {
         private readonly string htmlFile;

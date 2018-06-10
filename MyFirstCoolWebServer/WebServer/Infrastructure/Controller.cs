@@ -1,16 +1,14 @@
-﻿namespace HTTPServer.ByTheCakeApplication.Infrastructure
+﻿namespace HTTPServer.Infrastructure
 {
-    using Server.Enums;
-    using Server.Http.Contracts;
-    using Server.Http.Response;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using Views.Home;
-
+    using Server.Enums;
+    using Server.Http.Contracts;
+    using Server.Http.Response;
     public abstract class Controller 
     {
-        public const string DefaultPath = @"..\..\..\ByTheCakeApplication\Resources\{0}.html";
+        public const string DefaultPath = @"..\..\..\{0}\Resources\{1}.html";
         public const string ContentPlaceholder = "{{{content}}}";
 
         protected Controller()
@@ -18,11 +16,16 @@
             this.ViewData = new Dictionary<string, string>
             {
                 ["authDisplay"] = "block",
-                ["showError"] = "none"
+                ["showError"] = "none",
+                ["guestDisplay"] = "none",
+                ["adminDisplay"] = "none",
+                ["userDisplay"] = "none"
             };
         }
 
         protected IDictionary<string, string> ViewData { get; private set; }
+
+        protected abstract string ApplicationDirectory { get; }
 
         protected void AddViewError(string errorMessage)
         {
@@ -46,10 +49,10 @@
 
         private string ProcessFileHtml(string fileName)
         {
-            var layoutHtml = File.ReadAllText(string.Format(DefaultPath, "layout"));
+            var layoutHtml = File.ReadAllText(string.Format(DefaultPath, this.ApplicationDirectory, "layout"));
 
             var fileHtml = File
-                .ReadAllText(string.Format(DefaultPath, fileName));
+                .ReadAllText(string.Format(DefaultPath, this.ApplicationDirectory, fileName));
 
             var result = layoutHtml.Replace(ContentPlaceholder, fileHtml);
 

@@ -1,17 +1,14 @@
-﻿using System;
-using System.Text;
-using HTTPServer.Server.Http;
-
-namespace HTTPServer.ByTheCakeApplication.Controllers
+﻿namespace HTTPServer.ByTheCakeApplication.Controllers
 {
-    using Infrastructure;
+    using System;
+    using Server.Http;
     using Server.Http.Contracts;
     using Server.Http.Response;
     using System.Linq;
     using ViewModels;
     using Services;
     using Services.Contracts;
-    public class ShoppingController : Controller
+    public class ShoppingController : BaseController
     {
         private readonly IShoppingService shoppingService;
         private readonly IProductService productService;
