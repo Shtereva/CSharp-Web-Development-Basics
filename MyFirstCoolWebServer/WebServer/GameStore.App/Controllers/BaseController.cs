@@ -38,6 +38,7 @@
                 var username = this.Request.Session.Get<string>(SessionStore.CurrentUserKey);
 
                 var isAdmin = this.userService.IsAdmin(username);
+
                 if (isAdmin)
                 {
                     adminDisplay = "flex";

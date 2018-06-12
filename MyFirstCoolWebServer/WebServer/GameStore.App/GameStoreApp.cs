@@ -83,6 +83,11 @@ namespace HTTPServer.GameStore.App
                         TrailerId = req.FormData["video-id"],
                         ReleaseDate = req.FormData["release-date"]
                     }));
+
+            appRouteConfig
+                .Get(
+                    @"/admin/games/list",
+                    req => new AdminController(req).List());
         }
     }
 }

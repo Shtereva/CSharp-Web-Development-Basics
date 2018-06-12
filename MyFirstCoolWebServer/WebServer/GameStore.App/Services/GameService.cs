@@ -1,9 +1,11 @@
-﻿using System.Linq;
-using HTTPServer.GameStore.App.Data;
-using HTTPServer.GameStore.App.Models;
-
-namespace HTTPServer.GameStore.App.Services
+﻿namespace HTTPServer.GameStore.App.Services
 {
+    using ViewModels.Home;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Data;
+    using Models;
+    using ViewModels.Admin;
     using System;
     using Contracts;
     public class GameService : IGameService
@@ -32,6 +34,41 @@ namespace HTTPServer.GameStore.App.Services
                 db.SaveChanges();
 
                 return true;
+            }
+        }
+
+        public IEnumerable<AdminListGamesViewModel> All()
+        {
+            using (var db = new GamestoreAppDbContext())
+            {
+                return db.Games
+                    .OrderBy(g => g.Id)
+                    .Select(g => new AdminListGamesViewModel()
+                    {
+                        Id = g.Id,
+                        Name = g.Title,
+                        Price = g.Price,
+                        Size = g.Size
+                    })
+                    .ToArray();
+            }
+        }
+
+        public IEnumerable<AllGamesViewModel> List()
+        {
+            using (var db = new GamestoreAppDbContext())
+            {
+                return db.Games
+                    .OrderBy(g => g.Id)
+                    .Select(g => new AllGamesViewModel()
+                    {
+                        ImageTumbnail = g.ImageTumbnail,
+                        Title = g.Title,
+                        Price = g.Price,
+                        Size = g.Size,
+                        Description = g.Description
+                    })
+                    .ToArray();
             }
         }
     }
