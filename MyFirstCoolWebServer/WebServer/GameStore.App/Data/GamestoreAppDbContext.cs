@@ -9,6 +9,8 @@
 
         public DbSet<Game> Games { get; set; }
 
+        public DbSet<UserGame> UserGame { get; set; }
+
         private const string ConnectionString = "Server=.;Database=GameStore;Integrated Security=True";
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

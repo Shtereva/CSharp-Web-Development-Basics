@@ -13,6 +13,9 @@ namespace HTTPServer.GameStore.App.Controllers
     public class AdminController : BaseController
     {
         private const string AddGamePath = @"/admin/add-game";
+        private const string EditGamePath = @"/admin/edit-game";
+        private const string DeleteGamePath = @"/admin/delete-game";
+        private const string ListGamesPath = @"/admin/list-games";
 
         private readonly IGameService gameService;
         public AdminController(IHttpRequest req) : base(req)
@@ -20,6 +23,7 @@ namespace HTTPServer.GameStore.App.Controllers
             this.gameService = new GameService();
         }
 
+        // GET
         public IHttpResponse AddGame()
         {
             if (!this.Authentication.IsAdmin)
@@ -30,6 +34,7 @@ namespace HTTPServer.GameStore.App.Controllers
             return this.FileViewResponse(AddGamePath);
         }
 
+        //POST
         public IHttpResponse AddGame(AddGameViewModel viewModel)
         {
             if (!this.Authentication.IsAdmin)
@@ -65,9 +70,10 @@ namespace HTTPServer.GameStore.App.Controllers
                 return this.FileViewResponse(AddGamePath);
             }
 
-            return new RedirectResponse(@"/admin/games/list");
+            return new RedirectResponse(@"/");
         }
 
+        // GET
         public IHttpResponse List()
         {
             if (!this.Authentication.IsAdmin)
@@ -83,14 +89,83 @@ namespace HTTPServer.GameStore.App.Controllers
                 <td>{g.Size:f1} GB</td>
                 <td>{g.Price:f2} &euro;</td>
                 <td>
-                <a href=""#"" class=""btn btn-warning btn-sm"">Edit</a>
-                <a href=""#"" class=""btn btn-danger btn-sm"">Delete</a>
+                <a href=""/admin/games/edit/{g.Id}"" class=""btn btn-warning btn-sm"">Edit</a>
+                <a href=""/admin/games/delete/{g.Id}"" class=""btn btn-danger btn-sm"">Delete</a>
                 </td>
                 </tr>");
 
             this.ViewData["games"] = string.Join(Environment.NewLine, gamesResult);
 
-            return this.FileViewResponse(@"/admin/list-games");
+            return this.FileViewResponse(ListGamesPath);
+        }
+
+        // GET
+        public IHttpResponse Edit(int id)
+        {
+            if (!this.Authentication.IsAdmin)
+            {
+                return new RedirectResponse(@"/");
+            }
+
+            var game = this.gameService.Find(id);
+
+            if (game == null)
+            {
+                return new RedirectResponse(@"/");
+            }
+
+            this.ViewData["title"] = game.Title;
+            this.ViewData["description"] = game.Description;
+            this.ViewData["thumbnail"] = game.ImageTumbnail;
+            this.ViewData["price"] = game.Price;
+            this.ViewData["size"] = game.Size;
+            this.ViewData["url"] = game.TrailerId;
+            this.ViewData["date"] = game.ReleaseDate;
+
+            return this.FileViewResponse(EditGamePath);
+        }
+
+        // POST
+        public IHttpResponse Edit(AddGameViewModel viewModel)
+        {
+            this.gameService.Edit(int.Parse(viewModel.Id), viewModel);
+
+            return new RedirectResponse(@"/");
+        }
+
+        // GET
+        public IHttpResponse Delete(int id)
+        {
+            if (!this.Authentication.IsAdmin)
+            {
+                return new RedirectResponse(@"/");
+            }
+
+            var game = this.gameService.Find(id);
+
+            if (game == null)
+            {
+                return new RedirectResponse(@"/");
+            }
+
+            this.ViewData["title"] = game.Title;
+            this.ViewData["description"] = game.Description;
+            this.ViewData["thumbnail"] = game.ImageTumbnail;
+            this.ViewData["price"] = game.Price;
+            this.ViewData["size"] = game.Size;
+            this.ViewData["url"] = game.TrailerId;
+            this.ViewData["date"] = game.ReleaseDate;
+
+            return this.FileViewResponse(DeleteGamePath);
+        }
+
+        // POST
+        public IHttpResponse Delete(DeleteGameViewModel viewModel)
+        {
+
+            this.gameService.Delete(int.Parse(viewModel.GameId));
+
+            return new RedirectResponse(@"/");
         }
     }
 }

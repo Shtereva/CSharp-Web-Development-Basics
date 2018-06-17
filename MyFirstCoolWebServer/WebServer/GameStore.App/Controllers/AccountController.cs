@@ -1,6 +1,6 @@
 ﻿namespace HTTPServer.GameStore.App.Controllers
 {
-    using HTTPServer.ByTheCakeApplication.ViewModels;
+    using ViewModels;
     using Server.Http;
     using ViewModels.Account;
     using Server.Http.Contracts;
@@ -10,7 +10,6 @@
     {
         private const string RegisterPath = @"/account/register";
         private const string LoginPath = @"/account/login";
-        private const string HomePath = @"/home/index";
         public AccountController(IHttpRequest req) : base(req)
         {
         }
@@ -73,7 +72,7 @@
         private void LoginCurrentUser(string email)
         {
             this.Request.Session.Add(SessionStore.CurrentUserKey, email);
-            this.Request.Session.Add(ShoppingCart.SessionKey, new ShoppingCart());
+            this.Request.Session.Add(Cart.SessionKey, new Cart());
         }
     }
 }

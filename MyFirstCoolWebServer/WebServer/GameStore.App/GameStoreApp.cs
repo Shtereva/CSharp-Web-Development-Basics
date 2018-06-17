@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using HTTPServer.GameStore.App.ViewModels;
 using HTTPServer.GameStore.App.ViewModels.Account;
 using HTTPServer.GameStore.App.ViewModels.Admin;
 
@@ -21,8 +22,8 @@ namespace HTTPServer.GameStore.App
         }
         public void Configure(IAppRouteConfig appRouteConfig)
         {
-            appRouteConfig.AnonymousPaths.Add(@"/account/register");
             appRouteConfig.AnonymousPaths.Add(@"/account/login");
+            appRouteConfig.AnonymousPaths.Add(@"/account/register");
             appRouteConfig.AnonymousPaths.Add(@"/");
 
             appRouteConfig
@@ -88,6 +89,69 @@ namespace HTTPServer.GameStore.App
                 .Get(
                     @"/admin/games/list",
                     req => new AdminController(req).List());
+
+            appRouteConfig
+                .Get(
+                    @"/admin/games/edit/{(?<id>[0-9]+)}",
+                    req => new AdminController(req).Edit(int.Parse(req.UrlParameters["id"])));
+
+            appRouteConfig
+                .Post(
+                    @"/admin/games/edit/{(?<id>[0-9]+)}",
+                    req => new AdminController(req).Edit(new AddGameViewModel()
+                    {
+                        Id = req.UrlParameters["id"],
+                        Title = req.FormData["title"],
+                        Description = req.FormData["description"],
+                        ImageTumbnail = req.FormData["thumbnail"],
+                        Price = req.FormData["price"],
+                        Size = req.FormData["size"],
+                        TrailerId = req.FormData["url"],
+                        ReleaseDate = req.FormData["date"]
+                    }));
+
+            appRouteConfig
+                .Get(
+                    @"/admin/games/delete/{(?<id>[0-9]+)}",
+                    req => new AdminController(req).Delete(int.Parse(req.UrlParameters["id"])));
+
+            appRouteConfig
+                .Post(
+                    @"/admin/games/delete/{(?<id>[0-9]+)}",
+                    req => new AdminController(req).Delete(new DeleteGameViewModel()
+                    {
+                        GameId = req.UrlParameters["id"]
+                    }));
+
+            appRouteConfig
+                .Get(
+                    "/admin/games/info/{(?<id>[0-9]+)}",
+                    req => new HomeController(req).Info(int.Parse(req.UrlParameters["id"])));
+
+            appRouteConfig
+                .Get(
+                    "/account/cart",
+                    req => new CartController(req).ShowCart());
+
+            appRouteConfig
+                .Post(
+                    "/account/cart/",
+                    req => new CartController(req).ShowCart());
+
+            appRouteConfig
+                .Get(
+                    "/home/buy/{(?<id>[0-9]+)}",
+                    req => new CartController(req).Add(int.Parse(req.UrlParameters["id"])));
+
+            appRouteConfig
+                .Get(
+                    "/home/remove/{(?<id>[0-9]+)}",
+                    req => new CartController(req).Remove(int.Parse(req.UrlParameters["id"])));
+
+            appRouteConfig
+                .Get(
+                    "/home/all",
+                    req => new HomeController(req).Index());
         }
     }
 }

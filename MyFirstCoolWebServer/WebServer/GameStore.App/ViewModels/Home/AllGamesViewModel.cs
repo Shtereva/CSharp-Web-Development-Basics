@@ -2,6 +2,7 @@
 {
     public class AllGamesViewModel
     {
+        public string Id { get; set; }
         public string ImageTumbnail { get; set; }
 
         public string Title { get; set; }

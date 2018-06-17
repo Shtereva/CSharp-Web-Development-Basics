@@ -1,5 +1,6 @@
 ﻿namespace HTTPServer.GameStore.App.Services.Contracts
 {
+    using ViewModels;
     using ViewModels.Home;
     using System;
     using System.Collections.Generic;
@@ -12,5 +13,15 @@
         IEnumerable<AdminListGamesViewModel> All();
 
         IEnumerable<AllGamesViewModel> List();
+
+        AddGameViewModel Find(int id);
+
+        bool Edit(int id, AddGameViewModel viewModel);
+
+        bool Delete(int id);
+
+        bool Exist(int id);
+
+        IList<CartViewModel> GetCart(List<int> ids);
     }
 }
