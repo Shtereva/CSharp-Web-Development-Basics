@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using HTTPServer.GameStore.App.ViewModels.Admin;
-
-namespace HTTPServer.GameStore.App.Services
+﻿namespace HTTPServer.GameStore.App.Services
 {
+    using System.Collections.Generic;
     using Data;
     using Contracts;
     using System.Linq;

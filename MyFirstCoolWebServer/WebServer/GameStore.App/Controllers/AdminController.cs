@@ -1,13 +1,12 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using HTTPServer.GameStore.App.Services;
-using HTTPServer.GameStore.App.Services.Contracts;
-using HTTPServer.GameStore.App.ViewModels.Admin;
-using HTTPServer.Server.Http.Response;
-
-namespace HTTPServer.GameStore.App.Controllers
+﻿namespace HTTPServer.GameStore.App.Controllers
 {
+    using System;
+    using System.Globalization;
+    using System.Linq;
+    using Services;
+    using Services.Contracts;
+    using ViewModels.Admin;
+    using Server.Http.Response;
     using Server.Http.Contracts;
 
     public class AdminController : BaseController

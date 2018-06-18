@@ -1,7 +1,7 @@
 ﻿namespace HTTPServer.Server.Http.Response
 {
     using Enums;
-    using HTTPServer.Server.Common;
+    using Common;
     using System;
 
     public class InternalServerErrorResponse : ViewResponse

@@ -20,20 +20,38 @@
         }
         public IHttpResponse Index()
         {
-            var listGames = this.gameService
-                .List()
-                .ToArray();
+            var user = this.Request.Session.Get<string>(SessionStore.CurrentUserKey);
+            var sb = new StringBuilder();
+            var filter = "All";
 
+            if (this.Request.UrlParameters.ContainsKey("filter")
+                && this.Request.UrlParameters["filter"] == "Owned"
+                && this.Authentication.IsAuthenticated)
+            {
+                filter = "Owned";
+            }
+
+            var listGames = this.gameService.List(user, filter).ToArray();
+
+            string endCard = this.CreateHtml(user, sb, listGames);
+
+            sb.AppendLine(endCard);
+
+            this.ViewData["home-games"] = sb.ToString();
+
+            return this.FileViewResponse(@"/home/index");
+        }
+
+        private string CreateHtml(string user, StringBuilder sb, ViewModels.Home.AllGamesViewModel[] listGames)
+        {
             var startCard = $@"<div class=""card-group"">";
             var endCard = "</div>";
             var adminHomeDisplay = this.Authentication.IsAdmin ? "inline-block" : "none";
 
-            var sb = new StringBuilder();
             sb.AppendLine(startCard);
             int counter = 1;
 
             var cart = this.Request.Session.Get<Cart>(Cart.SessionKey);
-            var user = this.Request.Session.Get<string>(SessionStore.CurrentUserKey);
 
             for (int i = 0; i < listGames.Length; i++)
             {
@@ -87,13 +105,8 @@
                 counter++;
             }
 
-            sb.AppendLine(endCard);
-
-            this.ViewData["home-games"] = sb.ToString();
-
-            return this.FileViewResponse(@"/home/index");
+            return endCard;
         }
-
 
         public IHttpResponse Info(int id)
         {

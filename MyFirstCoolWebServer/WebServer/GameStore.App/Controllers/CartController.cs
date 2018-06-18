@@ -1,8 +1,7 @@
-﻿using HTTPServer.Server.Enums;
-using HTTPServer.Server.Http;
-
-namespace HTTPServer.GameStore.App.Controllers
+﻿namespace HTTPServer.GameStore.App.Controllers
 {
+    using Server.Enums;
+    using Server.Http;
     using System.Linq;
     using System.Text;
     using ViewModels;

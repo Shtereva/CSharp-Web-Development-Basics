@@ -1,11 +1,7 @@
-﻿using System;
-using System.Globalization;
-using HTTPServer.GameStore.App.ViewModels;
-using HTTPServer.GameStore.App.ViewModels.Account;
-using HTTPServer.GameStore.App.ViewModels.Admin;
-
-namespace HTTPServer.GameStore.App
+﻿namespace HTTPServer.GameStore.App
 {
+    using ViewModels.Account;
+    using ViewModels.Admin;
     using Controllers;
     using Data;
     using Server.Contracts;
@@ -147,11 +143,6 @@ namespace HTTPServer.GameStore.App
                 .Get(
                     "/home/remove/{(?<id>[0-9]+)}",
                     req => new CartController(req).Remove(int.Parse(req.UrlParameters["id"])));
-
-            appRouteConfig
-                .Get(
-                    "/home/all",
-                    req => new HomeController(req).Index());
         }
     }
 }

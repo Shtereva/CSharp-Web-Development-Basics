@@ -12,7 +12,7 @@
 
         IEnumerable<AdminListGamesViewModel> All();
 
-        IEnumerable<AllGamesViewModel> List();
+        IEnumerable<AllGamesViewModel> List(string user, string filter);
 
         AddGameViewModel Find(int id);
 

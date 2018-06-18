@@ -1,10 +1,7 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Text.RegularExpressions;
-
-namespace HTTPServer.GameStore.App
+﻿namespace HTTPServer.GameStore.App
 {
+    using System.Linq;
+    using System.Text.RegularExpressions;
     public static class Validator
     {
         public static bool Email(string email)

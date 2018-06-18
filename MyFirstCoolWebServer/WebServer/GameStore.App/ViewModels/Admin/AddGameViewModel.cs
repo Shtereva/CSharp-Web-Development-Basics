@@ -1,6 +1,5 @@
 ﻿namespace HTTPServer.GameStore.App.ViewModels.Admin
 {
-    using System;
     public class AddGameViewModel
     {
         public string Id { get; set; }

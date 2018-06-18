@@ -1,9 +1,8 @@
-﻿using HTTPServer.GameStore.App;
-using HTTPServer.Server;
-using HTTPServer.Server.Routing;
-
-namespace HTTPServer
+﻿namespace HTTPServer
 {
+    using GameStore.App;
+    using Server;
+    using Server.Routing;
     class Launcher
     {
         static void Main(string[] args)

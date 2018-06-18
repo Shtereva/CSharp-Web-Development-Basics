@@ -55,12 +55,27 @@
             }
         }
 
-        public IEnumerable<AllGamesViewModel> List()
+        public IEnumerable<AllGamesViewModel> List(string user, string filter)
         {
             using (var db = new GamestoreAppDbContext())
             {
-                return db.Games
-                    .OrderBy(g => g.Id)
+                var orderedGames = db.Games
+                    .OrderBy(g => g.Id);
+
+                Game[] games = null;
+
+                if (filter == "Owned")
+                {
+                    games = orderedGames
+                        .Where(g => g.Users.Any(u => u.User.Email == user))
+                        .ToArray();
+                }
+                else
+                {
+                    games = orderedGames.ToArray();
+                }
+
+                return games
                     .Select(g => new AllGamesViewModel()
                     {
                         Id = g.Id.ToString(),
@@ -85,7 +100,7 @@
                     return null;
                 }
 
-                
+
                 return new AddGameViewModel()
                 {
                     Price = game.Price.ToString("F2"),
@@ -144,7 +159,7 @@
                     return true;
                 }
             }
-            catch 
+            catch
             {
                 return false;
             }

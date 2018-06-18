@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace HTTPServer.GameStore.App.Services.Contracts
+﻿namespace HTTPServer.GameStore.App.Services.Contracts
 {
-    using ViewModels.Admin;
+    using System.Collections.Generic;
+    using ViewModels.Home;
     public interface IUserService
     {
         bool Create(string email, string fullName, string password);

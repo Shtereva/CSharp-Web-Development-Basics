@@ -1,6 +1,6 @@
 ﻿namespace HTTPServer.Server.Http
 {
-    using Server.Common;
+    using Common;
     using System;
 
     public class HttpCookie

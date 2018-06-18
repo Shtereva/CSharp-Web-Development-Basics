@@ -1,7 +1,6 @@
-﻿using System.Linq;
-
-namespace HTTPServer.Server.Handlers
+﻿namespace HTTPServer.Server.Handlers
 {
+    using System.Linq;
     using Common;
     using Contracts;
     using Http.Contracts;
