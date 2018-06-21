@@ -8,9 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Contracts\Generic\" />
     <Folder Include="Routes\" />
-    <Folder Include="ViewEngine\Generic\" />
   </ItemGroup>
 
   <ItemGroup>

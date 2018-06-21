@@ -5,6 +5,7 @@
     {
         public void Index()
         {
+            
             // return some view
         }
     }
