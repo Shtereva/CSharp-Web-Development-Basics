@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Routes\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\WebServer\WebServer.csproj" />
   </ItemGroup>
 

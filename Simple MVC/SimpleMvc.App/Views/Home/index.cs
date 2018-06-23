@@ -3,6 +3,6 @@
     using Framework.Contracts;
     public class Index : IRenderable
     {
-        public string Render() => "<h1>Test</h1>";
+        public string Render() => "<h1>Hello, MVC!</h1>";
     }
 }
