@@ -9,8 +9,6 @@
     using SimpleMvc.Framework.Controllers;
     using SimpleMvc.Framework.Attributes.Methods;
     using System.Collections.Generic;
-    using ViewModels;
-    using SimpleMvc.Framework.Contracts.Generic;
     public class UserController : Controller
     {
         [HttpGet]
@@ -22,6 +20,10 @@
         [HttpPost]
         public IActionResult Register(RegisterBindingModel model)
         {
+            if (!this.IsValidModel(model))
+            {
+                return this.View();
+            }
             using (var db = new NotesDbContext())
             {
                 if (db.Users.Any(u => u.Username == model.Username))
@@ -43,34 +45,60 @@
         }
 
         [HttpGet]
-        public IActionResult<AllUsersViewModel> All()
+        public IActionResult Login()
         {
-            List<UserViewModel> users = null;
+            return this.View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(LoginBindingModel model)
+        {
+            if (!this.IsValidModel(model))
+            {
+                return this.View();
+            }
 
             using (var db = new NotesDbContext())
             {
-                users = db.Users
-                    .Select(u => new UserViewModel()
-                    {
-                        UserId = u.Id,
-                        Username = u.Username
-                    })
-                    .ToList();
+                var user = db.Users.SingleOrDefault(u => u.Username == model.Username && u.Password == model.Password);
+
+                if (user == null)
+                {
+                    return this.RedirectToAction("/home/login");
+                }
+
+                this.SignIn(user.Username);
+
+                return this.RedirectToAction("/home/index");
             }
-
-            var viewModel = new AllUsersViewModel()
-            {
-                Usernames = users
-            };
-
-            return this.View(viewModel);
         }
 
         [HttpGet]
-        public IActionResult<UserProfileViewModel> Profile(int id)
+        public IActionResult All()
+        {
+            if (!this.User.IsAuthenticated)
+            {
+                return this.RedirectToAction("/home/login");
+            }
+
+            var users = new Dictionary<int, string>();
+
+            using (var db = new NotesDbContext())
+            {
+                users = db.Users.ToDictionary(u => u.Id, u => u.Username);
+            }
+
+            this.Model["users"] = users.Any()
+                ? string.Join(string.Empty, users.Select(u => $@"<li><a href=""/user/profile?id=""{u.Key}"">{u.Value}</a></li>"))
+                : string.Empty;
+
+            return this.View();
+        }
+
+        [HttpGet]
+        public IActionResult Profile(int id)
         {
             string username = null;
-            List<NoteViewModel> notes = null;
 
             using (var db = new NotesDbContext())
             {
@@ -88,29 +116,28 @@
                     throw new ArgumentException("User doesn't exist!");
                 }
 
-                username = user.Username;
-                notes = user.Notes
-                    .Select(n => new NoteViewModel()
-                    {
-                        Title = n.Title,
-                        Content = n.Content
-                    })
-                    .ToList();
+                this.Model["username"] = user.Username;
+                this.Model["userid"] = id.ToString();
+
+                var notes = user.Notes.ToList();
+
+
+                this.Model["users"] = notes.Any()
+                    ? string.Join(string.Empty,
+                        notes.Select(n => $@"<li>{n.Title} - {n.Content}</li>"))
+                    : string.Empty;
+
+                return this.View();
             }
-
-            var viewModel = new UserProfileViewModel()
-            {
-                UserId = id,
-                Username = username,
-                Notes = notes
-            };
-
-            return this.View(viewModel);
         }
 
         [HttpPost]
-        public IActionResult<UserProfileViewModel> Profile(AddNoteBindingViewModel model)
+        public IActionResult Profile(AddNoteBindingViewModel model)
         {
+            if (!this.IsValidModel(model))
+            {
+                return this.RedirectToAction($"/user/profile?id={model.UserId}");
+            }
             using (var db = new NotesDbContext())
             {
                 var user = db.Users.Find(model.UserId);

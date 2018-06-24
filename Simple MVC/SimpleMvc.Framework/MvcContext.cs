@@ -14,6 +14,8 @@
 
         public string ControllersSuffix { get; set; } = "Controller";
 
+        public string ResourcesFolder { get; set; } = "Resources";
+
         public string ViewsFolder { get; set; } = "Views";
 
         public string ModelsFolder { get; set; } = "Models";

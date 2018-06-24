@@ -1,47 +1,97 @@
 ﻿namespace SimpleMvc.Framework.Controllers
 {
-    using Contracts.Generic;
-    using ViewEngine.Generic;
+    using System.Linq;
+    using System.Reflection;
     using System.Runtime.CompilerServices;
+    using Attributes.Property;
     using Contracts;
-    using ViewEngine;
+    using Models;
+    using Security;
+    using ViewEngine.ActionResults;
+    using Views;
+    using WebServer.Http;
+    using WebServer.Http.Contracts;
 
     public abstract class Controller
     {
-        protected IActionResult View([CallerMemberName] string caller = "")
+        protected ViewModel Model { get; }
+
+        protected internal IHttpRequest Request { get; internal set; }
+
+        protected internal Authentication User { get; private set; }
+        protected Controller()
         {
+            this.Model = new ViewModel();
+            this.User = new Authentication();
+        }
+
+        private void InitializeViewModelData()
+        {
+            this.Model["displayType"] = this.User.IsAuthenticated ? "block" : "none";
+        }
+        protected void SignIn(string name)
+        {
+            this.Request.Session.Add(SessionStore.CurrentUserKey, name);
+        }
+
+        protected void SignOut()
+        {
+            this.Request.Session.Clear();
+        }
+
+        protected internal void InitializeController()
+        {
+            var user = this.Request
+                .Session
+                .Get<string>(SessionStore.CurrentUserKey);
+
+            if (user != null)
+            {
+                this.User = new Authentication(user);
+            }
+        }
+
+        protected IViewable View([CallerMemberName] string caller = "")
+        {
+            this.InitializeViewModelData();
+
             string controllerName = this.GetType()
                 .Name
                 .Replace(MvcContext.Get.ControllersSuffix, string.Empty);
 
             string fullQualifiedName = $"{MvcContext.Get.AssemblyName}.{MvcContext.Get.ViewsFolder}.{controllerName}.{caller}, {MvcContext.Get.AssemblyName}";
 
-            return new ActionResult(fullQualifiedName);
+            IRenderable view = new View(fullQualifiedName, this.Model.Data);
+
+            return new ViewResult(view);
         }
 
-        protected IActionResult View(string controller, string action)
+        protected IRedirectable RedirectToAction(string redirectUrl)
         {
-            string fullQualifiedName = $"{MvcContext.Get.AssemblyName}.{MvcContext.Get.ViewsFolder}.{controller}.{action}, {MvcContext.Get.AssemblyName}";
-
-            return new ActionResult(fullQualifiedName);
+            return new RedirectResult(redirectUrl);
         }
 
-        protected IActionResult<TModel> View<TModel>(TModel model, [CallerMemberName] string caller = "")
+        protected bool IsValidModel(object bindingModel)
         {
-            string controllerName = this.GetType()
-                .Name
-                .Replace(MvcContext.Get.ControllersSuffix, string.Empty);
+            foreach (var property in bindingModel.GetType().GetProperties())
+            {
+                var attributes = property.GetCustomAttributes<PropertyAttribute>().ToArray();
 
-            string fullQualifiedName = $"{MvcContext.Get.AssemblyName}.{MvcContext.Get.ViewsFolder}.{controllerName}.{caller}, {MvcContext.Get.AssemblyName}";
+                if (!attributes.Any())
+                {
+                    continue;
+                }
 
-            return new ActionResult<TModel>(fullQualifiedName, model);
-        }
+                foreach (var propertyAttribute in attributes)
+                {
+                    if (!propertyAttribute.IsValid(property.GetValue(bindingModel)))
+                    {
+                        return false;
+                    }
+                }
+            }
 
-        protected IActionResult<TModel> View<TModel>(string controller, string action, TModel model)
-        {
-            string fullQualifiedName = $"{MvcContext.Get.AssemblyName}.{MvcContext.Get.ViewsFolder}.{controller}.{action}, {MvcContext.Get.AssemblyName}";
-
-            return new ActionResult<TModel>(fullQualifiedName, model);
+            return true;
         }
     }
 }

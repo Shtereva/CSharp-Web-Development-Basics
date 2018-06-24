@@ -1,7 +1,7 @@
 ﻿namespace SimpleMvc.Framework.Contracts
 {
-    public interface IActionResult : IInvokable 
+    public interface IActionResult  
     {
-        IRenderable Action { get; set; }
+        string Invoke();
     }
 }

@@ -4,10 +4,12 @@
     using Http;
     using Http.Contracts;
     using System;
+    using System.Linq;
     using System.Net.Sockets;
     using System.Text;
     using System.Threading.Tasks;
     using Contracts;
+    using Http.Response;
 
     public class ConnectionHandler
     {
@@ -15,13 +17,17 @@
 
         private readonly IHandleable mvcRequestHandler;
 
-        public ConnectionHandler(Socket client, IHandleable mvcRequestHandler)
+        private readonly IHandleable resourceHandler;
+
+        public ConnectionHandler(Socket client, IHandleable mvcRequestHandler, IHandleable resourceHandler)
         {
             CoreValidator.ThrowIfNull(client, nameof(client));
             CoreValidator.ThrowIfNull(mvcRequestHandler, nameof(mvcRequestHandler));
+            CoreValidator.ThrowIfNull(resourceHandler, nameof(resourceHandler));
 
             this.client = client;
             this.mvcRequestHandler = mvcRequestHandler;
+            this.resourceHandler = resourceHandler;
         }
 
         public async Task ProcessRequestAsync()
@@ -30,9 +36,9 @@
 
             if (httpRequest != null)
             {
-                var httpResponse = this.mvcRequestHandler.Handle(httpRequest);
+                var httpResponse = this.HandleRequest(httpRequest);
 
-                var responseBytes = Encoding.UTF8.GetBytes(httpResponse.ToString());
+                var responseBytes = this.GetResponseBytes(httpResponse);
 
                 var byteSegments = new ArraySegment<byte>(responseBytes);
 
@@ -44,16 +50,70 @@
                 Console.WriteLine(httpResponse);
                 Console.WriteLine();
             }
-            
+
             this.client.Shutdown(SocketShutdown.Both);
+        }
+
+        private byte[] GetResponseBytes(IHttpResponse httpResponse)
+        {
+            var responseBytes = Encoding.UTF8.GetBytes(httpResponse.ToString()).ToList();
+
+            if (httpResponse is FileResponse)
+            {
+                responseBytes.AddRange(((FileResponse)httpResponse).FileData);
+            }
+
+            return responseBytes.ToArray();
+        }
+
+        private IHttpResponse HandleRequest(IHttpRequest httpRequest)
+        {
+            if (httpRequest.Path.Contains("."))
+            {
+                return this.resourceHandler.Handle(httpRequest);
+            }
+            else
+            {
+                string sessionIdToSend = this.SetRequestSession(httpRequest);
+
+                var response = this.mvcRequestHandler.Handle(httpRequest);
+
+                this.SetResponseSession(response, sessionIdToSend);
+
+                return response;
+            }
+        }
+
+        private void SetResponseSession(IHttpResponse response, string sessionIdToSend)
+        {
+            if (sessionIdToSend != null)
+            {
+                response.Headers.Add(
+                    HttpHeader.SetCookie,
+                    $"{SessionStore.SessionCookieKey}={sessionIdToSend}; HttpOnly; path=/"
+                    );
+            }
+        }
+
+        private string SetRequestSession(IHttpRequest httpRequest)
+        {
+            if (!httpRequest.Cookies.ContainsKey(SessionStore.SessionCookieKey))
+            {
+                var sessionId = Guid.NewGuid().ToString();
+
+                httpRequest.Session = SessionStore.Get(sessionId);
+                return sessionId;
+            }
+
+            return null;
         }
 
         private async Task<IHttpRequest> ReadRequest()
         {
             var result = new StringBuilder();
-            
+
             var data = new ArraySegment<byte>(new byte[1024]);
-            
+
             while (true)
             {
                 int numberOfBytesRead = await this.client.ReceiveAsync(data.Array, SocketFlags.None);
@@ -77,7 +137,7 @@
             {
                 return null;
             }
-            
+
             return new HttpRequest(result.ToString());
         }
     }

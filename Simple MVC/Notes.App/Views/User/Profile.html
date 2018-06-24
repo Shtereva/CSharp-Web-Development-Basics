@@ -1,0 +1,19 @@
+﻿<a href="../Home/Index.html">Home</a>
+<br />
+
+<h2>User: {{{username}}}</h2>
+
+<form action="Profile.html" method="POST" role="form">
+    <div class="form-control">
+       Title: <input type="text" class="form-control" name="Title" placeholder="Title">
+        Content: <input type="text" class="form-control" name="Content" placeholder="Content">
+        <input type="hidden" name="UserId" value="{{{userid}}}"/>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Add Note</button>
+    
+    <h5>List of notes</h5>
+    <ul>
+        {{{notes}}}
+    </ul>
+</form>
