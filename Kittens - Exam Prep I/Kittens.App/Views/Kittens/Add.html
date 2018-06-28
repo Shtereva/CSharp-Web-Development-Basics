@@ -1,0 +1,48 @@
+﻿<hr class="my-2" />
+<div class="legend text-center">
+    <h2>Register</h2>
+</div>
+<hr class="my-2">
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="form-holder text-center">
+            <form class="form-inline" action="/kittens/add" method="POST">
+                <fieldset>
+                    <div class="control-group">
+                        <label class="control-label" for="name">Username</label>
+                        <div class="controls">
+                            <input type="text" required maxlength="20" id="name" name="Name" placeholder="Name" class="input-xlarge">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="control-group">
+                        <label class="control-label" for="age">Age</label>
+                        <div class="controls">
+                            <input type="number" required id="age" min="0" max="15" name="Age" placeholder="Age" class="input-xlarge">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="control-group">
+                        <label class="control-label" for="breed">Breed</label>
+                        <div class="controls">
+                            <input type="text" required list="breeds" autocomplete="on" id="breed" name="Breed" placeholder="Breed"
+                                   class="input-xlarge">
+                            <datalist id="breeds">
+                                <option value="Street Transcended">
+                                <option value="American Shorthair">
+                                <option value="Munchkin">
+                                <option value="Siamese">
+                            </datalist>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="control-group">
+                        <div class="controls">
+                            <button class="btn btn-success">Add Kitten</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
