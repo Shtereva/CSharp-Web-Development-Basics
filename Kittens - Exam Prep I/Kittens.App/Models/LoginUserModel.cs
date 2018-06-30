@@ -5,7 +5,6 @@
     public class LoginUserModel
     {
         [Required]
-        [MinLength(2), MaxLength(20)]
         public string Username { get; set; }
 
         [Required]

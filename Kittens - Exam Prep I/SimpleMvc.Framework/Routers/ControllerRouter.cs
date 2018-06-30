@@ -64,6 +64,7 @@
                    .Where(attr => attr is PreAuthorizeAttribute)
                    .Cast<PreAuthorizeAttribute>()
                    .FirstOrDefault();
+
                 if (authAttribute != null && !controller.User.IsAuthenticated)
                 {
                     return authAttribute.GetResponse("The user is not authorized to perform this action.");
@@ -76,7 +77,7 @@
             }
             catch (UnauthorizedException e)
             {
-                return new PreAuthorizeAttribute().GetResponse(e.Message);
+                return new Attributes.Security.PreAuthorizeAttribute().GetResponse(e.Message);
             }
         }
 

@@ -1,15 +1,16 @@
 ﻿<hr class="my-2" />
 <div class="legend text-center">
-    <h2>Register</h2>
+    <h2>Add Kitten</h2>
 </div>
 <hr class="my-2">
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="form-holder text-center">
+            <div class="text-danger">{{{error}}}</div>
             <form class="form-inline" action="/kittens/add" method="POST">
                 <fieldset>
                     <div class="control-group">
-                        <label class="control-label" for="name">Username</label>
+                        <label class="control-label" for="name">Name</label>
                         <div class="controls">
                             <input type="text" required maxlength="20" id="name" name="Name" placeholder="Name" class="input-xlarge">
                         </div>
@@ -25,14 +26,12 @@
                     <div class="control-group">
                         <label class="control-label" for="breed">Breed</label>
                         <div class="controls">
-                            <input type="text" required list="breeds" autocomplete="on" id="breed" name="Breed" placeholder="Breed"
-                                   class="input-xlarge">
-                            <datalist id="breeds">
-                                <option value="Street Transcended">
-                                <option value="American Shorthair">
-                                <option value="Munchkin">
-                                <option value="Siamese">
-                            </datalist>
+                            <select name="Breed" id="breed" class="form-control">
+                                <option value="Street Transcended">Street Transcended</option>
+                                <option value="American Shorthair">American Shorthair</option>
+                                <option value="Munchkin">Munchkin</option>
+                                <option value="Siamese">Siamese</option>
+                            </select>
                         </div>
                     </div>
                     <br />

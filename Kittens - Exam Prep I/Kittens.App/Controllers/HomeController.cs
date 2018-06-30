@@ -1,17 +1,21 @@
 ﻿namespace Kittens.App.Controllers
 {
     using SimpleMvc.Framework.Attributes.Methods;
-    using SimpleMvc.Framework.Controllers;
     using SimpleMvc.Framework.Interfaces;
 
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         [HttpGet]
         public IActionResult Index()
         {
-            this.Model["logged"] = "block";
-            this.Model["logged-out"] = "none";
-
+            if (this.User.IsAuthenticated)
+            {
+                this.Model.Data["message"] = $"Welcome, {this.User.Name}!";
+            }
+            else
+            {
+                this.Model.Data["message"] = @"<a href=""/user/login"">Login</a> to trade or <a href=""user//register"">Register</a> if you don't have an account.";
+            }
             return this.View();
         }
     }
