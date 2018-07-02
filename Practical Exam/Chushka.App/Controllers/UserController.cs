@@ -1,6 +1,5 @@
 ﻿namespace Chushka.App.Controllers
 {
-    using System;
     using System.Linq;
     using Chushka.Models;
     using Models.BindingModels;

@@ -26,13 +26,13 @@
                 <li class=""nav-item"">
                 <a class=""nav-link nav-link-white"" href=""/orders/all"">All Orders</a>
                 </li>
-                <a class=""nav-link nav-link-white"" href=""/"">Logout</a>
+                <a class=""nav-link nav-link-white"" href=""/user/logout"">Logout</a>
                 </li>" :
                 @"<li class=""nav-item"">
                 <a class=""nav-link nav-link-white"" href=""/"">Home</a>
                 </li>
                 <li class=""nav-item"">
-                <a class=""nav-link nav-link-white"" href=""/"">Logout</a>
+                <a class=""nav-link nav-link-white"" href=""/user/logout"">Logout</a>
                 </li>";
 
             this.ViewData.Data["topMenu"] = this.User.IsAuthenticated ?
