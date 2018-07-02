@@ -1,0 +1,37 @@
+﻿<main class="mt-3">
+    <h1 class="text-center">Create Product</h1>
+    <hr class="bg-secondary half-width" />
+    <form class="mx-auto half-width" method="post" action="/products/create">
+        <div class="text-danger text-center">{{{error}}}</div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Name..." name="Name" required>
+        </div>
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input type="number" class="form-control" id="price" placeholder="Price..." name="Price" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" id="description" placeholder="Description..." name="Description" required>
+        </div>
+        <h3 class="text-center">Product Type</h3>
+        <hr class="bg-secondary half-width" />
+        <div>
+            <input type="radio" name="FoodTypeId" value="1" />
+            <p style="display: inline">Food</p>
+            <input type="radio" name="FoodTypeId" value="2" />
+            <p style="display: inline">Domestic</p>
+            <input type="radio" name="FoodTypeId" value="3" />
+            <p style="display: inline">Health</p>
+            <input type="radio" name="FoodTypeId" value="4" />
+            <p style="display: inline">Cosmetic</p>
+            <input type="radio" name="FoodTypeId" value="5" />
+            <p style="display: inline">Other</p>
+        </div>
+        <hr class="bg-secondary half-width" />
+        <div class="button-holder d-flex justify-content-center">
+            <button type="submit" class="btn chushka-bg-color">Create</button>
+        </div>
+    </form>
+</main>

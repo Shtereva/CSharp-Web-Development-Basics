@@ -1,0 +1,23 @@
+﻿<main class="mt-3 mb-5">
+    <h1 class="text-center">{{{name}}}</h1>
+    <hr class="hr-2 bg-dark" />
+    <div class="product-type-holder half-width mx-auto d-flex justify-content-between">
+        <h3 class="text-center">Type: {{{foodType}}}</h3>
+        <h3 class="text-center">Price: ${{{price}}}</h3>
+    </div>
+    <hr class="hr-2 bg-dark" />
+    <h3 class="text-center">Description</h3>
+    <div class="product-description-holder">
+        <p class="text-center mt-4">
+            {{{description}}}
+        </p>
+    </div>
+    <hr class="hr-2 bg-dark" />
+    <h3 class="text-center">Actions</h3>
+    <div class="product-action-holder mt-4 d-flex justify-content-center">
+        <a class="btn chushka-bg-color" href="/orders/order?id={{{id}}}">Order</a>
+        <a class="btn chushka-bg-color" href="/products/edit?id={{{id}}}" style="display: {{{adminDisplay}}}">Edit</a>
+        <a class="btn chushka-bg-color" href="/products/delete?id={{{id}}}" style="display: {{{adminDisplay}}}">Delete</a>
+        <a class="btn chushka-bg-color" href="/">Cancel</a>
+    </div>
+</main>
